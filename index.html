@@ -1,0 +1,254 @@
+<img src="https://i.postimg.cc/Bb74xQG9/Gemini-Generated-Image-o4uacgo4uacgo4ua.png"
+     alt="Header Image"
+     style="width:100%; max-height:180px; object-fit:cover; margin-bottom:15px; border-radius:10px;">
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Application Form</title>
+<style>
+body { font-family: "Noto Sans Bengali", sans-serif; background:#f4f7f4; margin:0; padding:0; }
+.header { background:#3e7d57; color:#fff; padding:15px 25px; font-size:20px; text-align:center; }
+.container { max-width:1000px; margin:30px auto; background:#fff; padding:20px 30px; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+h3 { color:#2e5d2e; margin-bottom:10px;}
+input[type=text], input[type=date], select { padding:8px; width:100%; margin-bottom:10px; border:1px solid #aaa; border-radius:5px; }
+input[type=file] { margin-bottom:10px; }
+.btn-submit { background:#3e7d57; color:#fff; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; }
+.btn-submit:hover { background:#2e5d3d; }
+.radio-group { display:flex; gap:15px; }
+img#photoPreview { max-width:150px; display:none; margin-top:10px; border:1px solid #ccc; border-radius:5px; }
+.validation { background:#d3e5d3; padding:5px 10px; font-weight:bold; letter-spacing:3px; margin-right:10px; display:inline-block; }
+</style>
+</head>
+<body>
+
+<div class="header">মোবাইল শোরুম নিয়োগ আবেদন</div>
+<div class="header">Online Portal</div>
+
+<div class="container">
+<h3>Personal Information</h3>
+<label>পদের নাম</label>
+<input type="text" id="postName" placeholder="Assistant">
+
+<label>প্রার্থীর নাম</label>
+<input type="text" id="applicantName">
+
+<label>পিতার নাম</label>
+<input type="text" id="fatherName">
+
+<label>মাতার নাম</label>
+<input type="text" id="motherName">
+
+<label>জন্মতারিখ</label>
+<input type="date" id="dob">
+
+<label>লিঙ্গ</label>
+<select id="gender">
+<option value="">Select</option>
+<option>পুরুষ</option>
+<option>মহিলা</option>
+<option>অন্যান্য</option>
+</select>
+
+<label>শারীরিক অক্ষমতা</label>
+<div class="radio-group">
+<label><input type="radio" name="handicap" value="হ্যাঁ"> হ্যাঁ</label>
+<label><input type="radio" name="handicap" value="না"> না</label>
+</div>
+
+<label>বৈবাহিক অবস্থা</label>
+<div class="radio-group">
+<label><input type="radio" name="marital" value="বিবাহিত"> বিবাহিত</label>
+<label><input type="radio" name="marital" value="অবিবাহিত"> অবিবাহিত</label>
+</div>
+
+<label>মোবাইল নম্বর</label>
+<input type="text" id="mobile" placeholder="01XXXXXXXXX">
+
+<label>Confirm Mobile</label>
+<input type="text" id="confirmMobile">
+
+<label>NID / জন্মনিবন্ধন</label>
+<input type="text" id="nid">
+
+<h3>Photo Upload</h3>
+<input type="file" id="photoUpload" accept="image/*">
+<img id="photoPreview">
+
+<h3>Address</h3>
+<label>Division</label>
+<select id="division" onchange="updateDistricts()">
+<option value="">Select Division</option>
+<option>ঢাকা</option>
+<option>চট্টগ্রাম</option>
+<option>ময়মনসিংহ</option>
+<option>রাজশাহী</option>
+<option>খুলনা</option>
+<option>বরিশাল</option>
+<option>সিলেট</option>
+<option>রংপুর</option>
+
+</select>
+
+<label>District</label>
+<select id="district">
+<option value="">Select District</option>
+</select>
+
+<label>Thana / Upazila</label>
+<input type="text" id="thana">
+
+<label>Post Office</label>
+<input type="text" id="postOffice">
+
+<label>Village</label>
+<input type="text" id="village">
+
+<h3>Academic</h3>
+<label>SSC School</label>
+<input type="text" id="sscSchool">
+<label>SSC Result</label>
+<input type="text" id="sscResult">
+<label>(optional) HSC College</label>
+<input type="text" id="hscCollege">
+<label>HSC Result(optional)</label>
+<input type="text" id="hscResult">
+
+<label>(optional) Skills</label>
+<input type="text" id="skills" placeholder="Java, Excel, etc">
+
+<h3>Payment (100 টাকা) সেন্ড মানি করুন।
+
+01623108588 (বিকাশ / নগদ)
+01304242538 (বিকাশ / নগদ)
+ট্রানজেকশন সম্পন্ন হলে নিচের তথ্য দিন:</h3>
+<label>Payment Number</label>
+<input type="text" id="paymentNumber">
+<label>Transaction ID</label>
+<input type="text" id="transactionId">
+
+<h3>Validation</h3>
+<span class="validation" id="captcha"></span>
+<input type="text" id="captchaInput" placeholder="Enter Code">
+
+<br>
+<button class="btn-submit" onclick="validateForm()">Submit</button>
+</div>
+
+<script>
+// Districts
+
+const districtsByDivision = {
+  "ঢাকা": [
+    "ঢাকা","গাজীপুর","কিশোরগঞ্জ","গোপালগঞ্জ","ফরিদপুর","মাদারীপুর",
+    "মানিকগঞ্জ","মুন্সিগঞ্জ","নারায়ণগঞ্জ","নরসিংদী","রাজবাড়ী","শরীয়তপুর","টাঙ্গাইল"
+  ],
+  "চট্টগ্রাম": [
+    "চট্টগ্রাম","কক্সবাজার","ফেনী","নোয়াখালী","লক্ষ্মীপুর","চাঁদপুর",
+    "ব্রাহ্মণবাড়িয়া","রাঙ্গামাটি","খাগড়াছড়ি","বান্দরবান"
+  ],
+  "ময়মনসিংহ": [
+    "ময়মনসিংহ","জামালপুর","শেরপুর","নেত্রকোনা"
+  ],
+  "রাজশাহী": [
+    "রাজশাহী","বগুড়া","চাঁপাইনবাবগঞ্জ","জয়পুরহাট",
+    "নাটোর","নওগাঁ","পাবনা","সিরাজগঞ্জ"
+  ],
+  "রংপুর": [
+    "রংপুর","দিনাজপুর","লালমনিরহাট","নীলফামারী",
+    "পঞ্চগড়","ঠাকুরগাঁও","কুড়িগ্রাম","গাইবান্ধা"
+  ],
+  "খুলনা": [
+    "খুলনা","যশোর","চুয়াডাঙ্গা","মেহেরপুর","নড়াইল",
+    "মাগুরা","বাগেরহাট","সাতক্ষীরা","ঝিনাইদহ"
+  ],
+  "বরিশাল": [
+    "বরিশাল","ভোলা","বরগুনা","পটুয়াখালী","পিরোজপুর","ঝালকাঠি"
+  ],
+  "সিলেট": [
+    "সিলেট","মৌলভীবাজার","হবিগঞ্জ","সুনামগঞ্জ"
+  ]
+};
+
+// Division নির্বাচন করলে জেলা লোড হবে
+function updateDistricts() {
+  const div = document.getElementById("division").value;
+  const dist = document.getElementById("district");
+  dist.innerHTML = "<option value=''>Select District</option>";
+
+  if (districtsByDivision[div]) {
+    districtsByDivision[div].forEach(d => {
+      let opt = document.createElement("option");
+      opt.value = d;
+      opt.text = d;
+      dist.add(opt);
+    });
+  }
+}
+// Captcha
+function generateCaptcha(){
+  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let code="";
+  for(let i=0;i<7;i++) code+=chars.charAt(Math.floor(Math.random()*chars.length));
+  document.getElementById("captcha").textContent=code;
+}
+
+// Photo preview
+const photoInput=document.getElementById('photoUpload');
+const photoPreview=document.getElementById('photoPreview');
+photoInput.addEventListener('change',function(e){
+  const file=e.target.files[0];
+  if(file){
+    const reader=new FileReader();
+    reader.onload=function(ev){ photoPreview.src=ev.target.result; photoPreview.style.display='block'; }
+    reader.readAsDataURL(file);
+  } else { photoPreview.style.display='none'; }
+});
+
+// Form validation + save
+function validateForm(){
+  const nid = document.getElementById("nid").value.trim();
+  const captcha = document.getElementById("captcha").textContent.trim();
+  const captchaInput = document.getElementById("captchaInput").value.trim();
+  if(!/^\d{5,}$/.test(nid)){ alert("NID সঠিক দিতে হবে!"); return; }
+  if(captchaInput!==captcha){ alert("Validation কোড ভুল!"); generateCaptcha(); return; }
+
+  const application = {
+    postName: document.getElementById("postName").value,
+    applicantName: document.getElementById("applicantName").value,
+    fatherName: document.getElementById("fatherName").value,
+    motherName: document.getElementById("motherName").value,
+    dob: document.getElementById("dob").value,
+    gender: document.getElementById("gender").value,
+    mobile: document.getElementById("mobile").value,
+    confirmMobile: document.getElementById("confirmMobile").value,
+    nid: nid,
+    division: document.getElementById("division").value,
+    district: document.getElementById("district").value,
+    thana: document.getElementById("thana").value,
+    postOffice: document.getElementById("postOffice").value,
+    village: document.getElementById("village").value,
+    sscSchool: document.getElementById("sscSchool").value,
+    sscResult: document.getElementById("sscResult").value,
+    hscCollege: document.getElementById("hscCollege").value,
+    hscResult: document.getElementById("hscResult").value,
+    skills: document.getElementById("skills").value,
+    photo: photoPreview.src,
+    paymentNumber: document.getElementById("paymentNumber").value,
+    transactionId: document.getElementById("transactionId").value,
+    handicap: document.querySelector('input[name="handicap"]:checked')?.value || '',
+    marital: document.querySelector('input[name="marital"]:checked')?.value || ''
+  };
+
+  let applications = JSON.parse(localStorage.getItem("applications")||"[]");
+  applications.push(application);
+  localStorage.setItem("applications", JSON.stringify(applications));
+  alert("✅ আবেদন সফলভাবে জমা হয়েছে!");
+  location.reload();
+}
+
+window.onload = generateCaptcha;
+</script>
+
+</body>
+</html>
